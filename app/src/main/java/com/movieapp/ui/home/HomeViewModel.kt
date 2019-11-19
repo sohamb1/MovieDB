@@ -2,7 +2,6 @@ package com.movieapp.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.movieapp.data.Movie
 import com.movieapp.data.MovieRepository
 import com.movieapp.data.Poster
 import com.movieapp.networking.ApiFactory
@@ -16,7 +15,7 @@ class HomeViewModel : BaseViewModel() {
     val popularMoviesLiveData = MutableLiveData<MutableList<Poster>>()
 
     fun fetchMovies(page: Int){
-        scope.launch {
+        scope.async {
             val popularMovies = repository.getPopularMovies(page)
             popularMoviesLiveData.postValue(popularMovies)
         }

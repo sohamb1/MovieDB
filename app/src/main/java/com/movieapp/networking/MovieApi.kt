@@ -1,6 +1,6 @@
 package com.movieapp.networking
 
-import com.movieapp.data.MovieResponse
+import com.movieapp.data.Movie
 import com.movieapp.data.PosterResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -14,5 +14,5 @@ interface MovieApi {
     fun getPopularMovieAsync(@Query("page") page: Int): Deferred<Response<PosterResponse>>
 
     @GET("movie/{movie_id}")
-    fun getMovieDetailsAsync(@Path("movie_id") id: Int): Deferred<Response<MovieResponse>>
+    fun getMovieDetailsAsync(@Path("movie_id") id: Int): Deferred<Response<Movie>>
 }

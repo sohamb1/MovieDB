@@ -1,17 +1,12 @@
 package com.movieapp.ui.home
 
-import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.movieapp.AppConstants
 import com.movieapp.R
@@ -19,8 +14,8 @@ import com.movieapp.data.Poster
 import com.movieapp.ui.details.MovieDetailsActivity
 import com.squareup.picasso.Picasso
 
-class RecyclerAdapter(data: MutableList<Poster>, activity: FragmentActivity?) :
-    RecyclerView.Adapter<RecyclerAdapter.Holder>() {
+class PosterAdapter(data: MutableList<Poster>, activity: FragmentActivity?) :
+    RecyclerView.Adapter<PosterAdapter.Holder>() {
 
     private var movies: MutableList<Poster> = data
     private var activity: FragmentActivity? = activity
@@ -45,17 +40,18 @@ class RecyclerAdapter(data: MutableList<Poster>, activity: FragmentActivity?) :
         fun bind(movie: Poster, activity: FragmentActivity?) {
             Picasso.get().load(AppConstants.MOVIE_PHOTO_URL + movie.poster_path).centerCrop().fit().into(image)
             view.setOnClickListener {
-                var intent: Intent = Intent(activity, MovieDetailsActivity::class.java)
+                val intent: Intent = Intent(activity, MovieDetailsActivity::class.java)
                 intent.putExtra("id", movie.id)
                 activity?.startActivity(intent)
+                activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         }
     }
 
     fun addData(listItems: MutableList<Poster>) {
-        var size = movies.size
+        val size = movies.size
         this.movies.addAll(listItems)
-        var sizeNew = this.movies.size
+        val sizeNew = this.movies.size
         notifyItemRangeChanged(size, sizeNew)
     }
 }
